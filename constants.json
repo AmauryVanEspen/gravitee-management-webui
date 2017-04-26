@@ -3,5 +3,15 @@
     "portalTitle": "Gravitee.io Portal",
     "managementTitle": "Gravitee.io Management",
     "devMode": false,
-    "userCreationEnabled": true
+    "userCreationEnabled": true,
+
+    "authentication": {
+      "type": "oauth2",
+      "oauth2": {
+        "clientId": "",
+        "baseUrl": "",
+        "responseType": "",
+        "scope": ""
+      }
+    }
 }
