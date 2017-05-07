@@ -19,6 +19,7 @@ import DocumentationService from '../../services/apiDocumentation.service';
 import TenantService from '../../services/tenant.service';
 import ResourceService from '../../services/resource.service';
 import TagService from "../../services/tag.service";
+import MetadataService from "../../services/metadata.service";
 
 export default apisRouterConfig;
 
@@ -356,6 +357,21 @@ function apisRouterConfig($stateProvider: ng.ui.IStateProvider) {
         menu: {
           label: 'Events',
           icon: 'event_note'
+        }
+      }
+    })
+    .state('management.apis.detail.metadatas', {
+      url: '/metadatas',
+      template: require('./metadatas/apiMetadatas.html'),
+      controller: 'ApiMetadatasController',
+      controllerAs: 'apiMetadatasCtrl',
+        resolve: {
+          metadataFormats: (MetadataService: MetadataService) => MetadataService.listFormats()
+        },
+      data: {
+        menu: {
+          label: 'Metadatas',
+          icon: 'description'
         }
       }
     });

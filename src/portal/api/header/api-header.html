@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<section id="header" layout="row" flex class="md-whiteframe-5dp">
+<section id="header" layout="column" flex class="md-whiteframe-5dp">
   <div layout="row" layout-align="center" flex>
     <div layout="column" style="min-width: 540px;">
       <div class="api-general">
@@ -26,15 +26,22 @@
       <div class="api-description" layout="row">
         <p ng-if="$ctrl.api.proxy.context_path">
           <ng-md-icon icon="http" style="fill: silver"></ng-md-icon>
-          <span>{{::$ctrl.api.proxy.context_path}}<md-tooltip md-direction="bottom">{{'api.contextPath' | translate}}</md-tooltip></span>
+          <span>{{::$ctrl.api.proxy.context_path}}</span>
+          <md-tooltip md-direction="bottom">{{'api.contextPath' | translate}}</md-tooltip>
         </p>
         <p>
           <ng-md-icon icon="person" style="fill: silver"></ng-md-icon>
-          <span>{{::$ctrl.api.owner.username}}<md-tooltip md-direction="bottom">{{'api.owner' | translate}}</md-tooltip></span>
+          <span>{{::$ctrl.api.owner.username}}</span>
+          <md-tooltip md-direction="bottom">{{'api.owner' | translate}}</md-tooltip>
         </p>
         <p ng-if="::$ctrl.api.deployed_at">
           <ng-md-icon icon="schedule" style="fill: silver"></ng-md-icon>
-          <span>{{::$ctrl.api.deployed_at | humanDateFilter}}<md-tooltip md-direction="bottom">{{'api.lastDeployment' | translate}}</md-tooltip></span>
+          <span>{{::$ctrl.api.deployed_at | humanDateFilter}}</span>
+          <md-tooltip md-direction="bottom">{{'api.lastDeployment' | translate}}</md-tooltip>
+        </p>
+        <p ng-if="::$ctrl.visibleMetadatas" ng-click="$ctrl.showMetadatas()">
+          <ng-md-icon icon="description" style="fill: silver"></ng-md-icon>
+          <md-tooltip md-direction="bottom">{{'api.metadatas' | translate}}</md-tooltip>
         </p>
       </div>
       <div class="api-actions" layout="row">

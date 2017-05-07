@@ -13,11 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as _ from 'lodash';
+import * as angular from 'angular';
+import ApiHeaderMetadatasDialogController from './dialog/api-header.metadatas.dialog.controller';
+
 const ApiHeaderComponent: ng.IComponentOptions = {
   bindings: {
-    api: '<'
+    api: '<',
+    $mdPanel: '<'
   },
-  template: require('./api-header.html')
+  template: require('./api-header.html'),
+  controller: function ($mdPanel) {
+
+    this.$onInit = function () {
+      let visibleMetadatas = _.filter(this.api.metadatas, {hidden: false});
+
+      this.visibleMetadatas = _.map(visibleMetadatas, function (metadata: any) {
+        return {name: metadata.name, value: metadata.value || metadata.defaultValue || ''};
+      });
+    };
+
+    this.showMetadatas = function () {
+      const position = $mdPanel.newPanelPosition().absolute().center();
+
+      const config = {
+        attachTo: angular.element(document.body),
+        controller: ApiHeaderMetadatasDialogController,
+        controllerAs: '$ctrl',
+        template: require('./dialog/api-header.metadatas.dialog.html'),
+        hasBackdrop: true,
+        panelClass: 'api-metadatas-dialog',
+        position: position,
+        zIndex: 150,
+        clickOutsideToClose: true,
+        escapeToClose: true,
+        focusOnOpen: true,
+        locals: {
+          metadatas: this.visibleMetadatas
+        }
+      };
+
+      $mdPanel.open(config);
+    };
+  }
 };
 
 export default ApiHeaderComponent;

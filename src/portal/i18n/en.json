@@ -7,7 +7,8 @@
     "SECONDS": "seconds",
     "MINUTES": "minuts",
     "HOURS": "hours",
-    "DAYS": "days"
+    "DAYS": "days",
+    "close": "Close"
   },
   "home": {
     "title": "Gravitee.io",
@@ -41,6 +42,7 @@
     "contextPath": "Context path",
     "owner": "Owner",
     "lastDeployment": "Last update",
+    "metadatas": "Metadata",
     "subscription": {
       "title": "Select an application to subscribe",
       "subtitle": "You are subscribing to plan {{planName}} {{planInformation}}",
@@ -70,6 +72,11 @@
         "title": "No documentation for this API",
         "message": "Come back soon, the API will be completed shortly"
       }
+    },
+    "metadata": {
+      "title": "Metadatas",
+      "name": "Name",
+      "value": "Value"
     }
   },
   "applications": {

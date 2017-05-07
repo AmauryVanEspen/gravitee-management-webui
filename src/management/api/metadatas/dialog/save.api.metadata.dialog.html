@@ -1,0 +1,69 @@
+<!--
+
+    Copyright (C) 2015 The Gravitee team (http://gravitee.io)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<md-dialog aria-label="{{$ctrl.metadata.id?'Update':'Create'}} API metadata">
+  <form name="formMetadata" ng-submit="$ctrl.save()" novalidate>
+    <md-dialog-content layout-padding>
+      <h4>{{$ctrl.metadata.id?'Update':'Create'}} API metadata</h4>
+      <div layout="column">
+        <md-input-container ng-if="$ctrl.metadata.id">
+          <label>Id</label>
+          <input ng-model="$ctrl.metadata.id" disabled>
+        </md-input-container>
+        <md-input-container>
+          <label>Name</label>
+          <input ng-model="$ctrl.metadata.name" md-autofocus="{{$ctrl.metadata.id?'false':'true'}}"
+                 required ng-disabled="$ctrl.metadata.id && !$ctrl.metadata.apiId">
+        </md-input-container>
+        <md-input-container>
+          <label>Format</label>
+          <md-select ng-model="$ctrl.metadata.format" ng-disabled="$ctrl.metadata.id && !$ctrl.metadata.apiId">
+            <md-option ng-repeat="metadataFormat in $ctrl.metadataFormats" ng-value="metadataFormat">
+              {{metadataFormat}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Value</label>
+          <input type="{{$ctrl.metadata.format === 'boolean'?'checkbox':'text'}}" ng-pattern="pattern"
+                 ng-model="$ctrl.metadata.value" placeholder="{{$ctrl.metadata.defaultValue}}"
+                 md-autofocus="{{$ctrl.metadata.id && !$ctrl.metadata.apiId?'true':'false'}}"
+                 gv-metadata-format="$ctrl.metadata.format" ng-true-value="'true'" ng-false-value="'false'"
+                 gv-metadata-validator>
+        </md-input-container>
+        <md-input-container>
+          <label>Default value</label>
+          <input type="{{$ctrl.metadata.format === 'boolean'?'checkbox':'text'}}" ng-model="$ctrl.metadata.defaultValue"
+                 ng-pattern="pattern" ng-disabled="$ctrl.metadata.id && !$ctrl.metadata.apiId"
+                 gv-metadata-format="$ctrl.metadata.format" gv-metadata-validator>
+        </md-input-container>
+        <md-input-container>
+          <label>Hidden</label>
+          <input type="checkbox" ng-model="$ctrl.metadata.hidden" ng-disabled="$ctrl.metadata.id && !$ctrl.metadata.apiId">
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="$ctrl.cancel()" class="md-primary">
+        Cancel
+      </md-button>
+      <md-button  type="submit" class="md-raised md-primary" ng-disabled="formMetadata.$invalid">
+        {{$ctrl.metadata.id?'Update':'Create'}} API metadata
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

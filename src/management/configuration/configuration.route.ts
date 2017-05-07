@@ -18,6 +18,7 @@ import TenantService from '../../services/tenant.service';
 import TagService from '../../services/tag.service';
 import SidenavService from '../../components/sidenav/sidenav.service';
 import PortalPagesService from '../../services/portalPages.service';
+import MetadataService from "../../services/metadata.service";
 
 export default configurationRouterConfig;
 
@@ -136,5 +137,20 @@ function configurationRouterConfig($stateProvider: ng.ui.IStateProvider) {
       controller: 'NewPageController',
       controllerAs: 'pageCtrl',
       data: {menu: null}
+    })
+    .state('management.configuration.admin.metadatas', {
+      url: '/metadatas',
+      component: 'metadatas',
+      resolve: {
+        metadatas: (MetadataService: MetadataService) => MetadataService.list().then(response => response.data),
+        metadataFormats: (MetadataService: MetadataService) => MetadataService.listFormats()
+      },
+      data: {
+        menu: {
+          label: 'API metadatas',
+          icon: 'description'
+        },
+        roles: ['ADMIN']
+      }
     });
 }

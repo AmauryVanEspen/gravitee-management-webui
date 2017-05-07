@@ -18,7 +18,7 @@
 .api-description {
   color: grey;
   p {
-    padding: 0px 5px 0px 5px;
+    padding: 0 5px 0 5px;
     i {
       float: left;
     }
@@ -39,4 +39,36 @@
 
 .main-content-api-gallery {
   background: #F5F5F6;
+}
+
+.api-metadatas {
+  color: silver;
+  text-align: center;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.api-metadatas-dialog {
+  background-color: #FFF;
+  max-height: 80%;
+  overflow-y: scroll;
+
+  table {
+    margin: 50px;
+    width: inherit;
+  }
+
+  .md-toolbar-tools {
+    background-color: #34A0D4;
+  }
+}
+
+.md-panel-outer-wrapper {
+  position: fixed;
 }
