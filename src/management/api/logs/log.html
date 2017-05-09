@@ -1,0 +1,259 @@
+
+
+<div layout="column" layout-padding flex>
+  <div layout="row" layout-padding flex>
+    <div flex="33">
+      <h4>Request</h4>
+      <md-table-container>
+        <table md-table>
+          <tbody md-body>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Timestamp</span></td>
+            <td md-cell>{{$ctrl.log.timestamp | date:'MMM d, y h:mm:ss.sss a'}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Request</span></td>
+            <td md-cell>{{$ctrl.log.id}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Method</span></td>
+            <td md-cell>
+              <span class="badge gravitee-policy-method-badge-info ng-binding ng-scope gravitee-policy-method-badge-{{$ctrl.log.method | uppercase}}-selected">
+                {{$ctrl.log.method | uppercase}}
+              </span>
+            </td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Path</span></td>
+            <td md-cell>{{$ctrl.log.path}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Content-length</span></td>
+            <td md-cell>{{$ctrl.log.requestContentLength | number}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </div>
+    <div flex="33">
+      <h4>Response</h4>
+      <md-table-container>
+        <table md-table>
+          <tbody md-body>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Status</span></td>
+            <td md-cell>{{$ctrl.log.status | number}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Content-length</span></td>
+            <td md-cell>{{$ctrl.log.responseContentLength | number}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </div>
+    <div flex="33">
+      <h4>Metadata</h4>
+      <md-table-container>
+        <table md-table>
+          <tbody md-body>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Transaction</span></td>
+            <td md-cell>{{$ctrl.log.transactionId}}</td>
+          </tr>
+          <tr md-row style="height: 30px;" ng-if="$ctrl.log.apiKey">
+            <td md-cell><span style="font-weight: bold">API Key</span></td>
+            <td md-cell>{{$ctrl.log.apiKey}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Application</span></td>
+            <td md-cell>{{$ctrl.log.application}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Plan</span></td>
+            <td md-cell>{{$ctrl.log.plan}}</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">Response time</span></td>
+            <td md-cell>{{$ctrl.log.responseTime | number}} ms</td>
+          </tr>
+          <tr md-row style="height: 30px;">
+            <td md-cell><span style="font-weight: bold">API response time</span></td>
+            <td md-cell>{{$ctrl.log.apiResponseTime | number}} ms</td>
+          </tr>
+          <tr md-row style="height: 30px;" ng-if="$ctrl.log.tenant">
+            <td md-cell><span style="font-weight: bold">Tenant</span></td>
+            <td md-cell>{{$ctrl.log.tenant}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </div>
+  </div>
+
+  <div ng-if="$ctrl.log.endpoint" flex>
+    <div layout="row" layout-padding flex>
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Client request</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+            <md-table-container>
+              <table md-table>
+                <tbody md-body>
+                <tr md-row ng-repeat="(key, value) in $ctrl.log.clientRequestHeaders" style="height: 30px;">
+                  <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                  <td md-cell>{{value[0]}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+        </md-card-content>
+      </md-card>
+
+      <div flex layout="column" layout-align="center center">
+        <span>
+          <ng-md-icon icon="arrow_forward" size="30px"></ng-md-icon>
+        </span>
+      </div>
+
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Proxy request</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-table-container>
+            <table md-table>
+              <tbody md-body>
+              <tr md-row ng-repeat="(key, value) in $ctrl.log.proxyRequestHeaders" style="height: 30px;">
+                <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                <td md-cell>{{value[0]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div layout="row" layout-padding flex>
+      <div flex></div>
+      <div flex="45" layout="column" layout-padding layout-align="center center">
+        <div>
+          <span>
+          <ng-md-icon icon="arrow_downward" size="30px"></ng-md-icon>
+        </span>
+        </div>
+        <div>
+          <h4>{{$ctrl.log.endpoint}}</h4>
+        </div>
+        <div>
+          <span>
+          <ng-md-icon icon="arrow_downward" size="30px"></ng-md-icon>
+        </span>
+        </div>
+      </div>
+
+    </div>
+    <div layout="row" layout-padding flex>
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Client response</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-table-container>
+            <table md-table>
+              <tbody md-body>
+              <tr md-row ng-repeat="(key, value) in $ctrl.log.clientResponseHeaders" style="height: 30px;">
+                <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                <td md-cell>{{value[0]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+
+      <div flex layout="column" layout-align="center center">
+        <span>
+          <ng-md-icon icon="arrow_back" size="30px"></ng-md-icon>
+        </span>
+      </div>
+
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Proxy response</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-table-container>
+            <table md-table>
+              <tbody md-body>
+              <tr md-row ng-repeat="(key, value) in $ctrl.log.proxyResponseHeaders" style="height: 30px;">
+                <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                <td md-cell>{{value[0]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+
+  <div ng-if="!$ctrl.log.endpoint" flex>
+    <div layout="row" layout-padding flex>
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Client request</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-table-container>
+            <table md-table>
+              <tbody md-body>
+              <tr md-row ng-repeat="(key, value) in $ctrl.log.clientRequestHeaders" style="height: 30px;">
+                <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                <td md-cell>{{value[0]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+
+      <div flex layout="column" layout-align="center center">
+        <span>
+          <ng-md-icon icon="arrow_forward" size="30px"></ng-md-icon>
+        </span>
+      </div>
+
+      <md-card flex="45">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Client response</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+          <md-table-container>
+            <table md-table>
+              <tbody md-body>
+              <tr md-row ng-repeat="(key, value) in $ctrl.log.clientResponseHeaders" style="height: 30px;">
+                <td md-cell><span style="font-weight: bold">{{key}}</span></td>
+                <td md-cell>{{value[0]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>
